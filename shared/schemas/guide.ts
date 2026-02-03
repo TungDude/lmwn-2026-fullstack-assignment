@@ -1,9 +1,5 @@
 import { z } from 'zod';
 
-export const GuideIdListSchema = z.array(z.string().uuid());
-
-export type GuideIdList = z.infer<typeof GuideIdListSchema>;
-
 export const GuideDetailSchema = z.object({
     id: z.string().uuid(),
     title: z.string(),

@@ -7,9 +7,16 @@ export class GuideService {
         private readonly httpClient: AxiosInstance = guideClient
     ) { }
 
-    async getGuides(): Promise<string[]> {
-        const response = await this.httpClient.get<string[]>(`/guides`);
-        return response.data;
+    async getGuides(): Promise<GuideDetail[]> {
+        const idsResponse = await this.httpClient.get<string[]>(`/guides`);
+        const guideIds = idsResponse.data;
+        
+        const guidePromises = guideIds.map(id => 
+            this.httpClient.get<GuideDetail>(`/guides/${id}`)
+        );
+        
+        const guideResponses = await Promise.all(guidePromises);
+        return guideResponses.map(response => response.data);
     }
 
     async getGuideDetailById(guideId: string): Promise<GuideDetail> {
