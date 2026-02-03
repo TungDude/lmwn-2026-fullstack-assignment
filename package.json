@@ -3,12 +3,16 @@
   "description": "LMWN Frontend Assignment 2025",
   "author": "LMWN Frontend",
   "scripts": {
-    "dev": "pnpm run -r dev",
+    "dev": "pnpm run --stream --parallel -r dev",
     "test": "pnpm run -r test",
-    "lint": "pnpm run -r lint"
+    "lint": "pnpm run -r lint",
+    "build": "pnpm run -r build"
+  },
+  "overrides": {
+    "zod": "^3.25.76"
   },
   "devDependencies": {
-    "eslint": "9.21.0",
+    "eslint": "^9.26.0",
     "typescript": "5.7.2",
     "typescript-eslint": "8.24.1"
   },
