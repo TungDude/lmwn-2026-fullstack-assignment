@@ -115,6 +115,9 @@ importers:
       react-router-dom:
         specifier: ^7.13.0
         version: 7.13.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-swipeable:
+        specifier: ^7.0.2
+        version: 7.0.2(react@19.0.0)
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -2747,6 +2750,11 @@ packages:
     peerDependenciesMeta:
       react-dom:
         optional: true
+
+  react-swipeable@7.0.2:
+    resolution: {integrity: sha512-v1Qx1l+aC2fdxKa9aKJiaU/ZxmJ5o98RMoFwUqAAzVWUcxgfHFXDDruCKXhw6zIYXm6V64JiHgP9f6mlME5l8w==}
+    peerDependencies:
+      react: ^16.8.3 || ^17 || ^18 || ^19.0.0 || ^19.0.0-rc
 
   react-transition-group@4.4.5:
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
@@ -5886,6 +5894,10 @@ snapshots:
       set-cookie-parser: 2.7.2
     optionalDependencies:
       react-dom: 19.0.0(react@19.0.0)
+
+  react-swipeable@7.0.2(react@19.0.0):
+    dependencies:
+      react: 19.0.0
 
   react-transition-group@4.4.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
