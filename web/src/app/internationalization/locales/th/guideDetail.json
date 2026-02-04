@@ -1,0 +1,14 @@
+{
+    "editorsPick": "ร้านเด็ดแนะนำ",
+    "branch": "สาขา",
+    "contactInfo": "ช่องทางติดต่อ",
+    "socialMedia": "โซเชียลมีเดีย",
+    "address": "ที่อยู่",
+    "phone": "เบอร์โทร",
+    "workingHours": "เวลาทำการ",
+    "noDescription": "ไม่มีคำคำบรรยาย",
+    "emptyState": "ไม่มีรายละเอียดของไกด์ในขณะนี้ กรุณาตรวจสอบใหม่ภายหลัง",
+    "missingGuideId": "ไม่พบ Guide ID",
+    "missingGuideData": "ไม่พบข้อมูล Guide",
+    "error": "ไม่สามารถโหลดรายละเอียด Guide ได้ กรุณาลองใหม่อีกครั้ง"
+}

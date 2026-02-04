@@ -1,0 +1,14 @@
+{
+    "editorsPick": "Editor's Pick",
+    "branch": "Branch",
+    "contactInfo": "Contact Info",
+    "socialMedia": "Social Media",
+    "address": "Address",
+    "phone": "Phone",
+    "workingHours": "Working Hours",
+    "noDescription": "No description.",
+    "emptyState": "No guide details available.",
+    "missingGuideId": "Guide ID is missing.",
+    "missingGuideData": "Guide not found.",
+    "error": "Failed to load guide details. Please try again."
+}
