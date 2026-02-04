@@ -82,8 +82,8 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
         if (navigator.share) {
             try {
                 await navigator.share(shareData);
-            } catch (error: any) {
-                if (error.name !== 'AbortError') {
+            } catch (error) {
+                if (error instanceof Error && error.name !== 'AbortError') {
                     console.error("Error sharing content:", error);
                     showToast({
                         title: t("toast.shareFailed.title"),
