@@ -4,9 +4,8 @@ import { useToastStore } from "@/stores/toast-store";
 type ShowToastOptions = {
     title: string;
     description: string;
-    severity?: AlertProps["severity"];
     duration?: number;
-};
+} & Partial<AlertProps>;
 
 export function useToast() {
     const toasts = useToastStore((state) => state.toasts);
@@ -14,8 +13,13 @@ export function useToast() {
     const removeToast = useToastStore((state) => state.removeToast);
     const clearToasts = useToastStore((state) => state.clearToasts);
 
-    const showToast = ({ title, description, severity, duration = 6000 }: ShowToastOptions) => {
-        const id = addToast({ title, description, severity });
+    const showToast = ({
+        title,
+        description,
+        duration = 4000,
+        ...props
+    }: ShowToastOptions) => {
+        const id = addToast({ title, description, ...props });
 
         setTimeout(() => {
             removeToast(id);

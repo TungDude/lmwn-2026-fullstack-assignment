@@ -14,19 +14,19 @@ interface ToastProps {
 }
 
 export default function Toast({ toast, onDismiss }: Readonly<ToastProps>) {
-    const { title, description, ...rest } = toast;
+    const { title, description, icon, ...rest } = toast;
     const { isSmallScreen } = useResponsive();
 
     return (
         <Alert
             {...rest}
             icon={
-                <Info size={20} />
+                icon ?? <Info size={20} />
             }
             sx={{
                 pointerEvents: "auto",
                 p: 2,
-                width: isSmallScreen ? "60vw" : "30vw",
+                width: isSmallScreen ? "75vw" : "30vw",
                 maxWidth: 400,
                 justifyContent: "start",
                 alignItems: "center",
