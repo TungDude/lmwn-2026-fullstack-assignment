@@ -1,6 +1,18 @@
 {
     "title": "Discover Hidden Gems",
+    "searchPlaceholder": "Search guides...",
     "emptyGuide": "No guides available at the moment. Please check back later.",
     "readMore": "Read More",
-    "error": "Failed to load guides. Please try again."
+    "error": "Failed to load guides. Please try again.",
+    "search":{
+        "toast": {
+            "title": "Search Successful",
+            "description": "Showing results for \"{{query}}\""
+        }
+    },
+    "filter": {
+        "title": "Filter Guides",
+        "tags": "Tags",
+        "clear": "Clear"
+    }
 }
