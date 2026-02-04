@@ -10,10 +10,11 @@ const MIN_DESCRIPTION_LENGTH = 100;
 interface GuideHeroProps {
     guide: GuideDetail;
     header?: React.ReactNode;
+    footer?: React.ReactNode;
     onGuideClick?: (guideId: string) => void;
 };
 
-export default function GuideHero({ guide, header, onGuideClick }: Readonly<GuideHeroProps>) {
+export default function GuideHero({ guide, header, footer, onGuideClick }: Readonly<GuideHeroProps>) {
     const [imageLoaded, setImageLoaded] = useState(false);
 
     const handleGuideClick = () => {
@@ -74,6 +75,7 @@ export default function GuideHero({ guide, header, onGuideClick }: Readonly<Guid
                     <Typography variant="body1" color="textSecondary">
                         {getDescription()}
                     </Typography>
+                    {footer && <GuideHeader>{footer}</GuideHeader>}
                 </Stack>
             </Stack>
         </Stack>

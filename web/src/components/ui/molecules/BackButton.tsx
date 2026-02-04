@@ -27,7 +27,7 @@ export default function BackButton() {
             }}
         >
             <ChevronLeft
-                size={20}
+                size={16}
                 style={{ transition: "transform 0.2s ease-in-out" }}
                 className="lucide"
             />
@@ -35,7 +35,9 @@ export default function BackButton() {
                 variant="body2"
                 sx={{
                     fontWeight: 500,
-                    userSelect: "none"
+                    userSelect: "none",
+                    fontStyle: "italic",
+                    textDecoration: "underline",
                 }}
             >
                 {t("backButton.label")}

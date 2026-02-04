@@ -16,7 +16,9 @@ export class GuideService {
         );
         
         const guideResponses = await Promise.all(guidePromises);
-        return guideResponses.map(response => response.data);
+        return guideResponses.map(response => response.data).sort((a, b) => 
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
     }
 
     async getGuideDetailById(guideId: string): Promise<GuideDetail> {
