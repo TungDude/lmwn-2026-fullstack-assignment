@@ -1,12 +1,14 @@
-import { createTheme } from "@mui/material";
-import { typographyTheme } from "./typography-theme";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 import { chipTheme } from "./chip-theme";
+import { cardTheme } from "./card-theme";
+import { paletteTheme } from "./palette-theme";
 
-export const theme = createTheme({
-    typography: typographyTheme,
+export const theme = responsiveFontSizes(createTheme({
+    palette: paletteTheme,
     components: {
+        MuiCard: cardTheme,
         MuiChip: chipTheme,
     },
-});
+}));
 
 export default theme;

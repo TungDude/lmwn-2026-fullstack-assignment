@@ -4,7 +4,7 @@ import { baseTheme } from "./base-theme";
 export const chipTheme: Components<Theme>['MuiChip'] = {
     styleOverrides: {
         root: {
-            fontSize: "0.6rem",
+            fontSize: "0.7rem",
             height: "20px",
             [baseTheme.breakpoints.up("sm")]: {
                 fontSize: "0.75rem",
@@ -16,15 +16,12 @@ export const chipTheme: Components<Theme>['MuiChip'] = {
             },
         },
         label: {
-            paddingLeft: "8px",
-            paddingRight: "8px",
+            paddingX: "8px",
             [baseTheme.breakpoints.up("sm")]: {
-                paddingLeft: "10px",
-                paddingRight: "10px",
+                paddingX: "10px",
             },
             [baseTheme.breakpoints.up("md")]: {
-                paddingLeft: "12px",
-                paddingRight: "12px",
+                paddingX: "12px",
             },
         },
     },
