@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Box, Stack, Typography, Rating, Divider, useTheme } from "@mui/material";
+import { Box, Stack, Typography, Rating, Divider, IconButton, useTheme } from "@mui/material";
 import ImageGallery from "../molecules/ImageGallery";
 import Tags from "../atoms/Tags";
 import LinkButton from "../atoms/LinkButton";
 import ExpandableText from "../atoms/ExpandableText";
 import type { GuideItemWithRestaurant } from "@shared/packages";
 import useResponsive from "@/hooks/useResponsive";
-import { Phone, Map, Globe, Clock } from "lucide-react";
+import { useToast } from "@/hooks/useToast";
 import { useTranslation } from "react-i18next";
+import { Phone, Map, Globe, Clock, Share2 } from "lucide-react";
 
 interface GuideItemProps {
     guideItem: GuideItemWithRestaurant;
@@ -19,6 +20,7 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
     const { t: tCommon } = useTranslation("common");
     const { t: tUi } = useTranslation("ui");
     const { isMobile, isSmallScreen, isTablet } = useResponsive();
+    const { showToast } = useToast();
     const [isDescriptionExpanded, setDescriptionExpanded] = useState(false);
     const theme = useTheme();
 
@@ -67,6 +69,35 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
         const phoneNo = guideItem.restaurant.phoneNo;
         if (phoneNo) {
             globalThis.location.href = `tel:${phoneNo}`;
+        }
+    };
+
+    const handleShare = async () => {
+        const shareData = {
+            title: guideItem.restaurant.name,
+            text: `${guideItem.restaurant.name}\n${guideItem.description || ''}`,
+            url: guideItem.restaurant.url || globalThis.location.href,
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch (error: any) {
+                if (error.name !== 'AbortError') {
+                    console.error("Error sharing content:", error);
+                    showToast({
+                        title: t("toast.shareFailed.title"),
+                        description: t("toast.shareFailed.description"),
+                        severity: "error",
+                    });
+                }
+            }
+        } else {
+            showToast({
+                title: t("toast.shareNotSupported.title"),
+                description: t("toast.shareNotSupported.description"),
+                severity: "warning",
+            });
         }
     };
 
@@ -295,12 +326,22 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
                         </Stack>
                     </Stack>
 
-                    <Stack direction="row" spacing={0.5} alignItems="center">
-                        <Rating value={guideItem.restaurant.rating} precision={0.1} readOnly size="small" />
-                        <Typography variant="body2" color="text.secondary">
-                            {guideItem.restaurant.rating.toFixed(1)} ({guideItem.restaurant.numberOfReviews.toLocaleString()})
-                        </Typography>
-                    </Stack>
+                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 1 }}>
+                        <Stack direction="row" spacing={0.5} alignItems="center">
+                            <Rating value={guideItem.restaurant.rating} precision={0.1} readOnly size="small" />
+                            <Typography variant="body2" color="text.secondary">
+                                {guideItem.restaurant.rating.toFixed(1)} ({guideItem.restaurant.numberOfReviews.toLocaleString()})
+                            </Typography>
+                        </Stack>
+                        <IconButton
+                            aria-label="share"
+                            size="small"
+                            sx={{ color: theme.palette.grey[800] }}
+                            onClick={handleShare}
+                        >
+                            <Share2 size={isSmallScreen ? 16 : 20} />
+                        </IconButton>
+                    </Box>
 
                     {/* Description - Inline for tablet with single photo */}
                     {shouldShowDescriptionInline && renderDescription()}

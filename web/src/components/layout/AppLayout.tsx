@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Box, Stack, Fab, Typography } from "@mui/material";
 import Header from "@/components/ui/organisms/Header";
+import { ToastsContainer } from "../ui/organisms/ToastContainer";
 import { useState, useEffect, useRef } from "react";
 import { ChevronUp } from "lucide-react";
 
@@ -11,7 +12,7 @@ export default function AppLayout() {
     useEffect(() => {
         const handleScroll = () => {
             if (scrollContainerRef.current) {
-                if (scrollContainerRef.current.scrollTop > 300) {
+                if (scrollContainerRef.current.scrollTop > 1000) {
                     setShowFab(true);
                 } else {
                     setShowFab(false);
@@ -72,6 +73,7 @@ export default function AppLayout() {
                     </Stack>
                 </Fab>
             )}
+            <ToastsContainer />
         </Stack>
     );
 }
