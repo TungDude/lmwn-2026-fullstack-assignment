@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography, Alert, IconButton } from "@mui/material";
-import { useGuides } from "@/hooks/useGuideQueries";
+import { useGuides } from "@/hooks/queries/useGuideQueries";
 import GuideList from "../ui/templates/GuideList";
 import { useTranslation } from "react-i18next";
 import { RotateCw } from "lucide-react";

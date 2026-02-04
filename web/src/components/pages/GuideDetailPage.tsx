@@ -5,7 +5,7 @@ import EmptyState from "../ui/atoms/EmptyState";
 import BackButton from "../ui/molecules/BackButton";
 import GuideHero from "../ui/organisms/GuideHero";
 import GuideItemList from "../ui/templates/GuideItemList";
-import { useGuideItemsByGuideId } from "@/hooks/useGuideQueries";
+import { useGuideItemsByGuideId } from "@/hooks/queries/useGuideQueries";
 import type { GuideDetail } from "@shared/packages";
 import { useTranslation } from "react-i18next";
 import useResponsive from "@/hooks/useResponsive";
