@@ -1,0 +1,9 @@
+{
+    "backButton": {
+        "label": "Back to Guides"
+    },
+    "expandableText": {
+        "showMore": "Show more",
+        "showLess": "Show less"
+    }
+}

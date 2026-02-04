@@ -1,0 +1,9 @@
+{
+    "backButton": {
+        "label": "ย้อนกลับ"
+    },
+    "expandableText": {
+        "showMore": "แสดงเพิ่มเติม",
+        "showLess": "แสดงน้อยลง"
+    }
+}

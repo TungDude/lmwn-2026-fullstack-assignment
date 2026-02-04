@@ -1,24 +1,20 @@
-import { useState } from 'react'
+import { Routes, Route, Navigate } from "react-router-dom";
+import AppLayout from "./components/layout/AppLayout";
+import GuideListPage from "./components/pages/GuideListPage";
+import GuideDetailPage from "./components/pages/GuideDetailPage";
+import { PATHS } from "./app/routes/path";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1>Vite + React</h1>
-      <span className="text-red-500 font-semibold">asdasd</span>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Routes>
+      <Route element={<AppLayout />}>
+        <Route path={PATHS.guideList} element={<GuideListPage />} />
+        <Route path={PATHS.guideDetail} element={<GuideDetailPage />} />
+      </Route>
+
+      {/* Redirect any unknown routes to home */}
+      <Route path="*" element={<Navigate to={PATHS.guideList} replace />} />
+    </Routes>
   )
 }
 
