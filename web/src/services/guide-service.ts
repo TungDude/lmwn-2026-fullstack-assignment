@@ -2,7 +2,7 @@ import { apiClient } from "@/lib/api-client";
 import type {
     ApiResponse,
     GuideDetail,
-    GuideItem,
+    GuideItemWithRestaurant,
 } from "@shared/packages";
 
 export const guideService = {
@@ -13,16 +13,9 @@ export const guideService = {
         return response.data.data;
     },
 
-    async getGuideById(guideId: string): Promise<GuideDetail> {
-        const response = await apiClient.get<ApiResponse<GuideDetail>>(
-            `/guides/${guideId}`,
-        );
-        return response.data.data;
-    },
-
-    async getGuideItemById(guideItemId: string): Promise<GuideItem> {
-        const response = await apiClient.get<ApiResponse<GuideItem>>(
-            `/guides/items/${guideItemId}`,
+    async getGuideItemsByGuideId(guideId: string): Promise<GuideItemWithRestaurant[]> {
+        const response = await apiClient.get<ApiResponse<GuideItemWithRestaurant[]>>(
+            `/guides/${guideId}/items`,
         );
         return response.data.data;
     },
