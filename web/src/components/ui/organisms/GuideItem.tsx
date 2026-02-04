@@ -3,6 +3,7 @@ import { Box, Stack, Typography, Rating, Divider, IconButton, useTheme } from "@
 import ImageGallery from "../molecules/ImageGallery";
 import Tags from "../atoms/Tags";
 import LinkButton from "../atoms/LinkButton";
+import EmptyState from "../atoms/EmptyState";
 import ExpandableText from "../atoms/ExpandableText";
 import type { GuideItemWithRestaurant } from "@shared/packages";
 import useResponsive from "@/hooks/useResponsive";
@@ -24,41 +25,48 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
     const [isDescriptionExpanded, setDescriptionExpanded] = useState(false);
     const theme = useTheme();
 
+    if (!guideItem.restaurant) {
+        return (
+            <EmptyState message={t("missingRestaurantData")} />
+        )
+    }
+
+    const restaurant = guideItem.restaurant;
     const hasSinglePhoto = guideItem.photos.length === 1;
     const shouldShowDescriptionInline = isTablet && hasSinglePhoto;
     const shouldShowSidePanel = !isSmallScreen;
     const shouldShowContactInfoInSidePanel = !isSmallScreen;
 
     const handleOpenUrl = () => {
-        const url = guideItem.restaurant.url;
+        const url = restaurant.url;
         if (url) {
             window.open(url.startsWith('http') ? url : `https://${url}`, "_blank", "noopener,noreferrer");
         }
     };
 
     const handleOpenLine = () => {
-        const line = guideItem.restaurant.line;
+        const line = restaurant.line;
         if (line) {
             window.open(`https://line.me/ti/p/~${line}`, "_blank", "noopener,noreferrer");
         }
     };
 
     const handleOpenInstagram = () => {
-        const instagram = guideItem.restaurant.instagram;
+        const instagram = restaurant.instagram;
         if (instagram) {
             window.open(`https://instagram.com/${instagram}`, "_blank", "noopener,noreferrer");
         }
     };
 
     const handleOpenFacebook = () => {
-        const facebook = guideItem.restaurant.facebook;
+        const facebook = restaurant.facebook;
         if (facebook) {
             window.open(`https://facebook.com/${facebook}`, "_blank", "noopener,noreferrer");
         }
     };
 
     const handleOpenMap = () => {
-        const { lat, lng } = guideItem.restaurant;
+        const { lat, lng } = restaurant;
         if (lat && lng) {
             const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
             window.open(url, "_blank", "noopener,noreferrer");
@@ -66,7 +74,7 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
     };
 
     const handleCallPhone = () => {
-        const phoneNo = guideItem.restaurant.phoneNo;
+        const phoneNo = restaurant.phoneNo;
         if (phoneNo) {
             globalThis.location.href = `tel:${phoneNo}`;
         }
@@ -74,9 +82,9 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
 
     const handleShare = async () => {
         const shareData = {
-            title: guideItem.restaurant.name,
-            text: `${guideItem.restaurant.name}\n${guideItem.description || ''}`,
-            url: guideItem.restaurant.url || globalThis.location.href,
+            title: restaurant.name,
+            text: `${restaurant.name}\n${guideItem.description || ''}`,
+            url: restaurant.url || globalThis.location.href,
         };
 
         if (navigator.share) {
@@ -196,16 +204,16 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
                 <Typography variant="subtitle2" fontWeight={500}>
                     {t("contactInfo")}
                 </Typography>
-                {guideItem.restaurant.phoneNo && (
+                {restaurant.phoneNo && (
                     <LinkButton
-                        label={guideItem.restaurant.phoneNo}
+                        label={restaurant.phoneNo}
                         icon={<Phone size={16} color={theme.palette.grey[800]} style={{ flexShrink: 0 }} />}
                         onClick={handleCallPhone}
                     />
                 )}
-                {guideItem.restaurant.address && (
+                {restaurant.address && (
                     <LinkButton
-                        label={guideItem.restaurant.address}
+                        label={restaurant.address}
                         icon={<Map size={16} color={theme.palette.grey[800]} style={{ flexShrink: 0 }} />}
                         onClick={handleOpenMap}
                     />
@@ -246,11 +254,10 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
     };
 
     const renderSocialMedia = () => {
-        const hasSocial = guideItem.restaurant.line ||
-            guideItem.restaurant.instagram ||
-            guideItem.restaurant.facebook ||
-            guideItem.restaurant.url;
-
+        const hasSocial = restaurant.line ||
+            restaurant.instagram ||
+            restaurant.facebook ||
+            restaurant.url;
         if (!hasSocial) return null;
 
         return (
@@ -258,30 +265,30 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
                 <Typography variant="subtitle2" fontWeight={500}>
                     {t("socialMedia")}
                 </Typography>
-                {guideItem.restaurant.line && (
+                {restaurant.line && (
                     <LinkButton
-                        label={guideItem.restaurant.line}
+                        label={restaurant.line}
                         icon={<img src="/icons/line-icon.svg" alt="Line" width={18} height={18} />}
                         onClick={handleOpenLine}
                     />
                 )}
-                {guideItem.restaurant.instagram && (
+                {restaurant.instagram && (
                     <LinkButton
-                        label={guideItem.restaurant.instagram}
+                        label={restaurant.instagram}
                         icon={<img src="/icons/instagram-icon.svg" alt="Instagram" width={18} height={18} />}
                         onClick={handleOpenInstagram}
                     />
                 )}
-                {guideItem.restaurant.facebook && (
+                {restaurant.facebook && (
                     <LinkButton
-                        label={guideItem.restaurant.facebook}
+                        label={restaurant.facebook}
                         icon={<img src="/icons/facebook-icon.svg" alt="Facebook" width={18} height={18} />}
                         onClick={handleOpenFacebook}
                     />
                 )}
-                {guideItem.restaurant.url && (
+                {restaurant.url && (
                     <LinkButton
-                        label={guideItem.restaurant.url}
+                        label={restaurant.url}
                         icon={<Globe size={18} />}
                         onClick={handleOpenUrl}
                     />

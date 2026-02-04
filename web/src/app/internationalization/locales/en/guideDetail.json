@@ -10,6 +10,7 @@
     "emptyState": "No guide details available.",
     "missingGuideId": "Guide ID is missing.",
     "missingGuideData": "Guide not found.",
+    "missingRestaurantData": "Associated restaurant data is missing.",
     "shareNotSupported": "Sharing is not supported on this browser.",
     "error": "Failed to load guide details. Please try again.",
     "toast": {

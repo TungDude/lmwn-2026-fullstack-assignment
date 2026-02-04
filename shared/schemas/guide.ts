@@ -46,4 +46,4 @@ export const GuideItemIdSchema = z.object({
 
 export type GuideItemId = z.infer<typeof GuideItemIdSchema>;
 
-export type GuideItemWithRestaurant = GuideItem & { restaurant: Restaurant };
+export type GuideItemWithRestaurant = GuideItem & { restaurant?: Restaurant };
