@@ -25,7 +25,7 @@ export default function GuideList({ guides, isLoading, onGuideClick }: Readonly<
 
     const renderItems = () => {
         if (isLoading) {
-            return ["s1", "s2", "s3"].map(key => (
+            return ["gs1", "gs2", "gs3"].map(key => (
                 <GuideHeroSkeleton key={key} />
             ));
         }
@@ -47,9 +47,8 @@ export default function GuideList({ guides, isLoading, onGuideClick }: Readonly<
                         spacing={0.5}
                         sx={{
                             cursor: "pointer",
-                            color: "text.secondary",
+                            color: "primary.main",
                             "&:hover": {
-                                color: "primary.main",
                                 "& .lucide": {
                                     transform: "translateX(3px)"
                                 }

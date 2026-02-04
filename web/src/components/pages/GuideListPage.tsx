@@ -8,7 +8,7 @@ import { RotateCw } from "lucide-react";
 export default function GuideListPage() {
     const { t } = useTranslation("guideList");
     const navigate = useNavigate();
-    const { data: guides = [], isLoading, isError, refetch } = useGuides();
+    const { data: guides = [], isLoading, isError, error, refetch } = useGuides();
 
     const handleGuideClick = (guideId: string) => {
         const guide = guides.find(g => g.id === guideId);
@@ -18,7 +18,7 @@ export default function GuideListPage() {
     return (
         <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Stack spacing={2} sx={{ width: "100%", maxWidth: 800 }}>
-                <Typography variant="h2">{t("title")}</Typography>
+                <Typography variant="h3">{t("title")}</Typography>
                 {isError ? (
                     <Alert
                         severity="error"
@@ -36,7 +36,9 @@ export default function GuideListPage() {
                             alignItems: "center",
                         }}
                     >
-                        {t("error")}
+                        {error instanceof Error
+                            ? error.message
+                            : t("error")}
                     </Alert>
                 ) : (
                     <GuideList

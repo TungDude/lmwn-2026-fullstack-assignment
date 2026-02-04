@@ -16,9 +16,8 @@ export default function BackButton() {
             onClick={() => navigate(-1)}
             sx={{
                 cursor: "pointer",
-                color: "text.secondary",
+                color: "primary.main",
                 "&:hover": {
-                    color: "primary.main",
                     "& .lucide": {
                         transform: "translateX(-3px)"
                     }
