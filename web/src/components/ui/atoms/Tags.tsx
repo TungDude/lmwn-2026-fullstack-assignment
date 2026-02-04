@@ -1,14 +1,29 @@
 import { Chip, Box, Typography } from "@mui/material";
 
+const HIGHLIGHTED_TAG_SX = {
+    bgcolor: "green.main",
+    color: "green.contrastText",
+    borderColor: "green.contrastText",
+};
+
+const DEFAULT_TAG_SX = {
+    bgcolor: "grey.200",
+    color: "text.secondary",
+    borderColor: "text.secondary",
+};
+
 interface TagsProps {
     tags: string[];
+    highlights?: string[];
     variant?: "default" | "minimal";
     maxTags?: number;
 }
 
-export default function Tags({ tags, variant = "default", maxTags }: Readonly<TagsProps>) {
+export default function Tags({ tags, highlights = [], variant = "default", maxTags }: Readonly<TagsProps>) {
     const displayedTags = maxTags ? tags.slice(0, maxTags) : tags;
     const remainingCount = maxTags ? tags.length - maxTags : 0;
+    const isHighlighted = (tag: string) =>
+        highlights.length <= 0 || highlights.includes(tag);
 
     if (variant === "minimal") {
         return (
@@ -19,13 +34,13 @@ export default function Tags({ tags, variant = "default", maxTags }: Readonly<Ta
                         sx={{
                             px: 0.5,
                             py: 0.25,
-                            color: "black",
+                            color: isHighlighted(tag) ? "green.main" : "black",
                             borderRadius: "4px",
                             fontSize: "0.7rem",
                             fontWeight: 400,
                             lineHeight: 1.5,
                             border: "1px solid",
-                            borderColor: "border.main",
+                            borderColor: isHighlighted(tag) ? "green.main" : "border.main",
                         }}
                     >
                         {tag}
@@ -51,10 +66,8 @@ export default function Tags({ tags, variant = "default", maxTags }: Readonly<Ta
                         height: "20px",
                         fontSize: "0.7rem",
                         fontWeight: 500,
-                        bgcolor: "green.main",
-                        color: "green.contrastText",
+                        ...(isHighlighted(tag) ? HIGHLIGHTED_TAG_SX : DEFAULT_TAG_SX),
                         border: "1px solid",
-                        borderColor: "green.contrastText",
                         "& .MuiChip-label": {
                             px: 1,
                             py: 0,

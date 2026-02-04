@@ -10,11 +10,12 @@ import { useTranslation } from "react-i18next";
 
 interface GuideListProps {
     guides: GuideDetail[];
+    tagFilter?: string[];
     isLoading?: boolean;
     onGuideClick?: (guideId: string) => void;
 };
 
-export default function GuideList({ guides, isLoading, onGuideClick }: Readonly<GuideListProps>) {
+export default function GuideList({ guides, tagFilter, isLoading, onGuideClick }: Readonly<GuideListProps>) {
     const { t } = useTranslation("guideList");
 
     const handleGuideClick = (guideId: string) => {
@@ -38,7 +39,7 @@ export default function GuideList({ guides, isLoading, onGuideClick }: Readonly<
             <GuideHero
                 key={guide.id}
                 guide={guide}
-                header={<Tags tags={guide.tags} />}
+                header={<Tags tags={guide.tags} highlights={tagFilter} />}
                 footer={
                     <Stack
                         direction="row"
