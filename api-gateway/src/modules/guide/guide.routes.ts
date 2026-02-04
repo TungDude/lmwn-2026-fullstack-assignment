@@ -4,7 +4,6 @@ import * as guideController from "./guide.controller";
 const router = Router();
 
 router.get("/", guideController.getGuides);
-router.get("/:guideId", guideController.getGuideDetailById);
-router.get("/items/:guideItemId", guideController.getGuideItemById);
+router.get("/:guideId/items", guideController.getGuideItemsByGuideId);
 
 export const guideRoutes: Router = router;

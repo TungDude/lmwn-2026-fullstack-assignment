@@ -1,34 +1,52 @@
 import guideClient from "@/http/guide-client";
-import type { GuideDetail, GuideItem } from "@shared/packages";
+import restaurantClient from "@/http/restaurant-client";
+import type { GuideDetail, GuideItem, GuideItemWithRestaurant, Restaurant } from "@shared/packages";
 import { AxiosInstance } from "axios";
 
 export class GuideService {
     constructor(
-        private readonly httpClient: AxiosInstance = guideClient
+        private readonly guideHttpClient: AxiosInstance = guideClient,
+        private readonly restaurantHttpClient: AxiosInstance = restaurantClient
     ) { }
 
     async getGuides(): Promise<GuideDetail[]> {
-        const idsResponse = await this.httpClient.get<string[]>(`/guides`);
+        const idsResponse = await this.guideHttpClient.get<string[]>(`/guides`);
         const guideIds = idsResponse.data;
-        
-        const guidePromises = guideIds.map(id => 
-            this.httpClient.get<GuideDetail>(`/guides/${id}`)
+
+        const guidePromises = guideIds.map(id =>
+            this.guideHttpClient.get<GuideDetail>(`/guides/${id}`)
         );
-        
+
         const guideResponses = await Promise.all(guidePromises);
-        return guideResponses.map(response => response.data).sort((a, b) => 
+        return guideResponses.map(response => response.data).sort((a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
     }
 
-    async getGuideDetailById(guideId: string): Promise<GuideDetail> {
-        const response = await this.httpClient.get<GuideDetail>(`/guides/${guideId}`);
-        return response.data;
-    }
+    async getGuideItemsByGuideId(guideId: string): Promise<GuideItemWithRestaurant[]> {
+        const guideResponse = await this.guideHttpClient.get<GuideDetail>(`/guides/${guideId}`);
+        const guideItems = guideResponse.data.items || [];
 
-    async getGuideItemById(guideItemId: string): Promise<GuideItem> {
-        const response = await this.httpClient.get<GuideItem>(`/guide-items/${guideItemId}`);
-        return response.data;
+        const guideItemPromises = guideItems.map(itemId =>
+            this.guideHttpClient.get<GuideItem>(`/guide-items/${itemId}`)
+        );
+
+        const guideItemResponses = await Promise.all(guideItemPromises);
+        const items = guideItemResponses.map(response => response.data);
+
+        const restaurantIds = [...new Set(items.map(item => item.restaurantId))];
+        const restaurantPromises = restaurantIds.map(id =>
+            this.restaurantHttpClient.get<Restaurant>(`/restaurants/${id}`)
+        );
+        const restaurantResponses = await Promise.all(restaurantPromises);
+        const restaurantsMap = new Map(
+            restaurantResponses.map(r => [r.data.id, r.data])
+        );
+
+        return items.map(item => ({
+            ...item,
+            restaurant: restaurantsMap.get(item.restaurantId)
+        }));
     }
 }
 

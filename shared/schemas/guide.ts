@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Restaurant } from './restaurant';
 
 export const GuideDetailSchema = z.object({
     id: z.string().uuid(),
@@ -44,3 +45,5 @@ export const GuideItemIdSchema = z.object({
 });
 
 export type GuideItemId = z.infer<typeof GuideItemIdSchema>;
+
+export type GuideItemWithRestaurant = GuideItem & { restaurant: Restaurant };
