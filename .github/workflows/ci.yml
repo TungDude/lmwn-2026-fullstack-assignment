@@ -29,12 +29,17 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      
+      - name: Build shared packages
+        run: pnpm --filter '@shared/packages' build
         
       - name: Lint
         run: pnpm lint
 
-      - name: Run api tests
+      - name: Run tests
         run: pnpm test
 
-      - name: Build api
-        run: pnpm build
+      - name: Build Application
+        run: |
+          pnpm --filter web build
+          pnpm --filter api-gateway build
