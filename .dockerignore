@@ -1,0 +1,27 @@
+node_modules
+**/node_modules
+dist
+**/dist
+.git
+**/.git
+*.log
+.env
+.env.*
+.vscode
+coverage
+**/__tests__
+**/*.test.ts
+**/*.test.tsx
+.next
+.turbo
+.pnpm-store
+
+# Windows specific
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Build artifacts
+build
+*.tsbuildinfo
+.eslintcache
