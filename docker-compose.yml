@@ -1,5 +1,6 @@
 services:
   data-services:
+    platform: linux/amd4
     build:
       context: .
       dockerfile: ./data-services.Dockerfile
@@ -10,7 +11,7 @@ services:
       - "9999:9999"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8888/guides"]
+      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8888/guides" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -36,7 +37,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/api/health"]
+      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/api/health" ]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -58,7 +59,7 @@ services:
       - api-gateway
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/" ]
       interval: 10s
       timeout: 5s
       retries: 3
