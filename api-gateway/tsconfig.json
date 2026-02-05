@@ -33,12 +33,5 @@
   },
   "include": [
     "**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts",
-    "**/__test__/**",
-    "**/__tests__/**"
   ]
 }

@@ -7,7 +7,7 @@
     "dev": "run-p start:api-gw start:service",
     "start:api-gw": "nodemon --watch src --exec tsx src/index.ts",
     "start:service": "node node_modules/lmwn-assignment-2025-server/main.js",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "test": "vitest",
     "lint": "eslint ."
   },
