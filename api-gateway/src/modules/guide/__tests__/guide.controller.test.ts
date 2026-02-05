@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { Request, Response, NextFunction } from "express";
-import { createGuideDetail, createGuideItemWithRestaurant } from "./guide.fixtures";
+import { createGuideDetail, createGuideItemWithRestaurant } from "@shared/packages/tests";
 import { GuideController } from "../guide.controller";
 import { GuideService } from "../guide.service";
 

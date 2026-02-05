@@ -1,6 +1,10 @@
 import type { GuideDetail, GuideItem, GuideItemWithRestaurant } from "../schemas/guide";
 import type { Restaurant } from "../schemas/restaurant";
 
+type DeepPartial<T> = {
+    [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
 export const createGuideDetail = (overrides?: Partial<GuideDetail>): GuideDetail => ({
     id: "guide-1",
     title: "Sample Guide",
@@ -55,8 +59,17 @@ export const createRestaurant = (overrides?: Partial<Restaurant>): Restaurant =>
     ...overrides,
 });
 
-export const createGuideItemWithRestaurant = (overrides?: Partial<GuideItemWithRestaurant>): GuideItemWithRestaurant => ({
-    ...createGuideItem(),
-    restaurant: createRestaurant(),
-    ...overrides,
-});
+export const createGuideItemWithRestaurant = (
+    overrides?: Partial<Omit<GuideItemWithRestaurant, 'restaurant'>> & {
+        restaurant?: DeepPartial<Restaurant> | null;
+    }
+): GuideItemWithRestaurant => {
+    const { restaurant, ...guideItemOverrides } = overrides ?? {};
+
+    return {
+        ...createGuideItem(guideItemOverrides),
+        restaurant: restaurant === null
+            ? undefined
+            : createRestaurant(restaurant as Partial<Restaurant>),
+    };
+};
