@@ -6,7 +6,6 @@
     "lib": [
       "es6",
       "esnext",
-      "dom"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -34,5 +33,12 @@
   },
   "include": [
     "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/__test__/**",
+    "**/__tests__/**"
   ]
 }
