@@ -179,5 +179,6 @@ pnpm test
 
 **Tung Dude**
 - GitHub: [@TungDude](https://github.com/TungDude)
+- Project repository: [repo](https://github.com/TungDude/lmwn-2026-fullstack-assignment#)
 
 ---
