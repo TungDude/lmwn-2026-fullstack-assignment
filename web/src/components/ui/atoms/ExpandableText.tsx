@@ -8,6 +8,7 @@ interface ExpandableTextProps extends TypographyProps {
     hideLabel?: string;
     isExpanded: boolean;
     setExpanded: (expanded: boolean) => void;
+    "data-testid"?: string;
 }
 
 export default function ExpandableText({
@@ -17,16 +18,16 @@ export default function ExpandableText({
     hideLabel = "Show less",
     isExpanded,
     setExpanded,
+    "data-testid": dataTestId,
     ...typographyProps
 }: Readonly<ExpandableTextProps>) {
-
     const isLongText = text.length > maxLength;
     const displayedText =
         !isLongText || isExpanded ? text : text.slice(0, maxLength) + "...";
 
     return (
-        <Box flex={1} sx={{ minWidth: 0 }}>
-            <Typography variant="body2" color="text.secondary" {...typographyProps}>
+        <Box flex={1} sx={{ minWidth: 0 }} data-testid="expandable-text-container">
+            <Typography variant="body2" color="text.secondary" {...typographyProps} data-testid={dataTestId ?? "expandable-text"}>
                 {displayedText}
                 &nbsp;
                 {isLongText && (
@@ -35,6 +36,7 @@ export default function ExpandableText({
                         onClick={() => setExpanded(!isExpanded)}
                         sx={{ px: 0.5, minWidth: "auto", textTransform: "none" }}
                         disableRipple={true}
+                        data-testid="expandable-text-toggle"
                     >
                         {isExpanded ? (
                             <>

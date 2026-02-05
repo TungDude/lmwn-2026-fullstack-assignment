@@ -11,6 +11,7 @@
     "missingGuideId": "Guide ID is missing.",
     "missingGuideData": "Guide not found.",
     "missingRestaurantData": "Associated restaurant data is missing.",
+    "missingContactInfo": "No contact information available.",
     "shareNotSupported": "Sharing is not supported on this browser.",
     "error": "Failed to load guide details. Please try again.",
     "toast": {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Stack, Box, Typography, Skeleton } from "@mui/material";
 import ExpandableText from "../atoms/ExpandableText";
 import type { GuideDetail } from "@shared/packages/schemas";
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTime, normalizeString } from "@/lib/utils";
 
 const MAX_DESCRIPTION_LENGTH = 200;
 const MIN_DESCRIPTION_LENGTH = 100;
@@ -29,10 +29,10 @@ export default function GuideHero({ guide, descriptionType = "auto", expandableD
 
         switch (descriptionType) {
             case "short":
-                return shortDescription;
+                return normalizeString(shortDescription);
 
             case "full":
-                return description;
+                return normalizeString(description);
 
             case "auto":
             default:
@@ -51,12 +51,13 @@ export default function GuideHero({ guide, descriptionType = "auto", expandableD
     return (
         <Stack spacing={1}>
             {header &&
-                <Box sx={{ width: "100%" }}>{header}</Box>
+                <Box sx={{ width: "100%" }} data-testid="guide-header">{header}</Box>
             }
             <Stack
                 spacing={1}
                 onClick={handleGuideClick}
                 sx={{ cursor: onGuideClick ? "pointer" : "default" }}
+                data-testid="guide-container"
             >
                 <Box
                     sx={{
@@ -94,13 +95,14 @@ export default function GuideHero({ guide, descriptionType = "auto", expandableD
                             opacity: imageLoaded ? 1 : 0,
                             transition: "opacity 0.3s ease-in-out"
                         }}
+                        data-testid="guide-cover-image"
                     />
                 </Box>
                 <Stack spacing={0.5}>
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="caption" color="text.secondary" data-testid="guide-write-date">
                         {formatDateTime(guide.writeDate)}
                     </Typography>
-                    <Typography variant="h4">{guide.title}</Typography>
+                    <Typography variant="h4" data-testid="guide-title">{guide.title}</Typography>
                     {expandableDescription ? (
                         <ExpandableText
                             text={getDescription()}
@@ -111,14 +113,15 @@ export default function GuideHero({ guide, descriptionType = "auto", expandableD
                             isExpanded={isDescriptionExpanded}
                             setExpanded={setDescriptionExpanded}
                             textAlign="justify"
+                            data-testid="guide-description-expandable"
                         />
                     ) : (
-                        <Typography variant="body1" color="text.secondary" textAlign="justify">
+                        <Typography variant="body1" color="text.secondary" textAlign="justify" data-testid="guide-description-static">
                             {getDescription()}
                         </Typography>
                     )}
                     {footer &&
-                        <Box sx={{ width: "100%" }}>{footer}</Box>
+                        <Box sx={{ width: "100%" }} data-testid="guide-footer">{footer}</Box>
                     }
                 </Stack>
             </Stack>

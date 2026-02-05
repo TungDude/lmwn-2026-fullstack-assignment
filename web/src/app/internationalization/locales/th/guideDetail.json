@@ -11,6 +11,7 @@
     "missingGuideId": "ไม่พบ Guide ID",
     "missingGuideData": "ไม่พบข้อมูล Guide",
     "missingRestaurantData": "ไม่พบข้อมูลร้านอาหารที่เกี่ยวข้อง",
+    "missingContactInfo": "ไม่พบข้อมูลการติดต่อ",
     "shareNotSupported": "เบราว์เซอร์นี้ไม่รองรับการแชร์",
     "error": "ไม่สามารถโหลดรายละเอียด Guide ได้ กรุณาลองใหม่อีกครั้ง",
     "toast": {

@@ -218,6 +218,9 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
                         onClick={handleOpenMap}
                     />
                 )}
+                {!restaurant.phoneNo && !restaurant.address && (
+                    <EmptyState message={t("missingContactInfo")} />
+                )}
             </Stack>
         )
     };

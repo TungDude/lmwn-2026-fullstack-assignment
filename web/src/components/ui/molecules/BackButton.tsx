@@ -24,6 +24,7 @@ export default function BackButton() {
                 },
                 transition: "color 0.2s ease-in-out"
             }}
+            data-testid="back-button"
         >
             <ChevronLeft
                 size={16}
@@ -38,6 +39,7 @@ export default function BackButton() {
                     fontStyle: "italic",
                     textDecoration: "underline",
                 }}
+                data-testid="back-button-label"
             >
                 {t("backButton.label")}
             </Typography>

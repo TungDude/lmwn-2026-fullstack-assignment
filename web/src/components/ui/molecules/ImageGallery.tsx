@@ -41,6 +41,7 @@ export default function ImageGallery({
             cols={columns}
             gap={8}
             sx={{ width: "fit-content" }}
+            data-testid="image-gallery"
         >
             {images.slice(0, columns).map((image, index) => (
                 <Box
@@ -104,6 +105,7 @@ export default function ImageGallery({
                                     fontSize: 24,
                                     fontWeight: 600
                                 }}
+                                data-testid="image-gallery-overlay"
                             >
                                 +{images.length - columns}
                             </Box>

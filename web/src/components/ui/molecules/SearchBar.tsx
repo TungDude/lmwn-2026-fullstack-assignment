@@ -74,7 +74,10 @@ export default function Searchbar({
 
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
-            <Box sx={{ position: "relative", minWidth: "250px", width: "100%" }}>
+            <Box
+                sx={{ position: "relative", minWidth: "250px", width: "100%" }}
+                data-testid="searchbar-container"
+            >
                 <TextField
                     size="small"
                     value={internalValue}
@@ -98,6 +101,7 @@ export default function Searchbar({
                             autoCorrect: "off",
                             autoCapitalize: "off",
                             spellCheck: "false",
+                            "data-testid": "searchbar-input",
                         }
                     }}
                     sx={{
@@ -131,6 +135,7 @@ export default function Searchbar({
                             overflowY: "auto",
                         }}
                         className="custom-scrollbar"
+                        data-testid="searchbar-history-dropdown"
                     >
                         <List sx={{ py: 0 }}>
                             {filteredHistory.map((item, index) => (

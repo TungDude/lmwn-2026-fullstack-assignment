@@ -18,6 +18,7 @@ export default function EmptyState({ message }: Readonly<EmptyStateProps>) {
                 borderColor: "divider",
                 borderRadius: 2,
             }}
+            data-testid="empty-state"
         >
             <Typography variant="body2" color="text.secondary">
                 {message}

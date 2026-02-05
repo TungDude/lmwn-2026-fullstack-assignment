@@ -27,7 +27,7 @@ export default function Tags({ tags, highlights = [], variant = "default", maxTa
 
     if (variant === "minimal") {
         return (
-            <Box sx={{ display: "flex", gap: 0.2, alignItems: "center", flexWrap: "wrap" }}>
+            <Box sx={{ display: "flex", gap: 0.2, alignItems: "center", flexWrap: "wrap" }} data-testid="minimal-tags-container">
                 {displayedTags.map((tag, index) => (
                     <Box
                         key={`${tag}-${index}`}
@@ -47,7 +47,7 @@ export default function Tags({ tags, highlights = [], variant = "default", maxTa
                     </Box>
                 ))}
                 {remainingCount > 0 && (
-                    <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 500 }}>
+                    <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 500 }} data-testid="minimal-remaining-tags-count">
                         +{remainingCount}
                     </Typography>
                 )}
@@ -56,7 +56,7 @@ export default function Tags({ tags, highlights = [], variant = "default", maxTa
     }
 
     return (
-        <Box sx={{ display: "flex", gap: 0.2, alignItems: "center", flexWrap: "wrap" }}>
+        <Box sx={{ display: "flex", gap: 0.2, alignItems: "center", flexWrap: "wrap" }} data-testid="tags-container">
             {displayedTags.map((tag, index) => (
                 <Chip
                     key={`${tag}-${index}`}
@@ -90,6 +90,7 @@ export default function Tags({ tags, highlights = [], variant = "default", maxTa
                             py: 0,
                         },
                     }}
+                    data-testid="remaining-tags-chip"
                 />
             )}
         </Box>
