@@ -7,7 +7,7 @@ import ImageCarousel from "../molecules/ImageCarousel";
 import ResponsiveDialog from "../molecules/ResponsiveDialog";
 import { SlideTransition } from "../atoms/SlideTransition";
 import type { Image } from "../molecules/ImageGallery";
-import type { GuideItemWithRestaurant } from "@shared/packages";
+import type { GuideItemWithRestaurant } from "@shared/packages/schemas";
 import { useTranslation } from "react-i18next";
 
 interface GuideItemListProps {

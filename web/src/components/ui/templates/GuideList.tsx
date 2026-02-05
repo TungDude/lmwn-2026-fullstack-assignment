@@ -4,7 +4,7 @@ import EmptyState from "../atoms/EmptyState";
 import Tags from "../atoms/Tags";
 import GuideHero from "../organisms/GuideHero";
 import GuideHeroSkeleton from "../organisms/GuideHeroSkeleton";
-import type { GuideDetail } from "@shared/packages";
+import type { GuideDetail } from "@shared/packages/schemas";
 import { ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 

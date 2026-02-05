@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Stack, Box, Typography, Skeleton } from "@mui/material";
 import ExpandableText from "../atoms/ExpandableText";
-import type { GuideDetail } from "@shared/packages";
+import type { GuideDetail } from "@shared/packages/schemas";
 import { formatDateTime } from "@/lib/utils";
 
 const MAX_DESCRIPTION_LENGTH = 200;

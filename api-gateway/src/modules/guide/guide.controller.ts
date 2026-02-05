@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "@/helpers/async-handler";
-import { GuideIdSchema } from "@shared/packages";
+import { GuideIdSchema } from "@shared/packages/schemas";
 import { GuideService, guideService } from "./guide.service";
 
 export class GuideController {

@@ -3,7 +3,7 @@ import {
     type UseQueryResult,
 } from "@tanstack/react-query";
 import { guideService } from "@/services/guide-service";
-import type { GuideDetail, GuideItemWithRestaurant } from "@shared/packages";
+import type { GuideDetail, GuideItemWithRestaurant } from "@shared/packages/schemas";
 
 export const guideKeys = {
     all: ["guides"] as const,

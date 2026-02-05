@@ -1,6 +1,6 @@
 import guideClient from "@/http/guide-client";
 import restaurantClient from "@/http/restaurant-client";
-import type { GuideDetail, GuideItem, GuideItemWithRestaurant, Restaurant } from "@shared/packages";
+import type { GuideDetail, GuideItem, GuideItemWithRestaurant, Restaurant } from "@shared/packages/schemas";
 import { AxiosInstance } from "axios";
 
 export class GuideService {

@@ -5,7 +5,7 @@ import Tags from "../atoms/Tags";
 import LinkButton from "../atoms/LinkButton";
 import EmptyState from "../atoms/EmptyState";
 import ExpandableText from "../atoms/ExpandableText";
-import type { GuideItemWithRestaurant } from "@shared/packages";
+import type { GuideItemWithRestaurant } from "@shared/packages/schemas";
 import useResponsive from "@/hooks/useResponsive";
 import { useToast } from "@/hooks/useToast";
 import { useTranslation } from "react-i18next";

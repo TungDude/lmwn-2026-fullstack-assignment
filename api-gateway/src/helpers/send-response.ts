@@ -1,5 +1,5 @@
 import { Response } from "express";
-import type { ApiResponse } from "@shared/packages";
+import type { ApiResponse } from "@shared/packages/types";
 
 export const sendResponse = <T>(res: Response, status: number, data: T, message: string | null = null) => {
     const response: ApiResponse<T> = {
