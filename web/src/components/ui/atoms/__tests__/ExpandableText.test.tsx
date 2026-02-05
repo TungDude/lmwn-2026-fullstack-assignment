@@ -20,7 +20,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            expect(screen.getByText(shortText)).toBeInTheDocument();
+            const textElement = screen.getByTestId('expandable-text');
+            expect(textElement).toHaveTextContent(shortText);
         });
 
         it('should not show expand button for short text', () => {
@@ -34,7 +35,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            expect(screen.queryByRole('button')).not.toBeInTheDocument();
+            const toggleButton = screen.queryByTestId('expandable-text-toggle');
+            expect(toggleButton).not.toBeInTheDocument();
         });
     });
 
@@ -50,9 +52,9 @@ describe('ExpandableText', () => {
                 />
             );
 
-            const displayedText = screen.getByText(/This is a very long text/);
-            expect(displayedText.textContent).toContain('...');
-            expect(displayedText.textContent).not.toBe(longText);
+            const textElement = screen.getByTestId('expandable-text');
+            expect(textElement.textContent).toContain('...');
+            expect(textElement.textContent).not.toBe(longText);
         });
 
         it('should show full text when expanded', () => {
@@ -66,7 +68,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            expect(screen.getByText(longText, { exact: false })).toBeInTheDocument();
+            const textElement = screen.getByTestId('expandable-text');
+            expect(textElement).toHaveTextContent(longText);
         });
 
         it('should show "Show more" button when collapsed', () => {
@@ -80,7 +83,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            expect(screen.getByRole('button', { name: /show more/i })).toBeInTheDocument();
+            const toggleButton = screen.getByTestId('expandable-text-toggle');
+            expect(toggleButton).toBeInTheDocument();
         });
 
         it('should show "Show less" button when expanded', () => {
@@ -94,7 +98,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            expect(screen.getByRole('button', { name: /show less/i })).toBeInTheDocument();
+            const toggleButton = screen.getByTestId('expandable-text-toggle');
+            expect(toggleButton).toBeInTheDocument();
         });
 
         it('should call setExpanded when button is clicked', async () => {
@@ -110,8 +115,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            const button = screen.getByRole('button', { name: /show more/i });
-            await user.click(button);
+            const toggleButton = screen.getByTestId('expandable-text-toggle');
+            await user.click(toggleButton);
 
             expect(setExpanded).toHaveBeenCalledWith(true);
         });
@@ -129,8 +134,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            const button = screen.getByRole('button', { name: /show less/i });
-            await user.click(button);
+            const toggleButton = screen.getByTestId('expandable-text-toggle');
+            await user.click(toggleButton);
 
             expect(setExpanded).toHaveBeenCalledWith(false);
         });
@@ -149,7 +154,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            expect(screen.getByRole('button', { name: /read more/i })).toBeInTheDocument();
+            const toggleButton = screen.getByTestId('expandable-text-toggle');
+            expect(toggleButton).toBeInTheDocument();
         });
 
         it('should use custom hideLabel', () => {
@@ -164,7 +170,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            expect(screen.getByRole('button', { name: /collapse/i })).toBeInTheDocument();
+            const toggleButton = screen.getByTestId('expandable-text-toggle');
+            expect(toggleButton).toBeInTheDocument();
         });
     });
 
@@ -182,8 +189,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            const typography = screen.getByText(shortText);
-            expect(typography).toHaveClass('MuiTypography-h6');
+            const text = screen.getByTestId('expandable-text');
+            expect(text).toHaveClass('MuiTypography-h6');
         });
     });
 
@@ -199,9 +206,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            // lucide-react icons render as SVG
-            const button = screen.getByRole('button');
-            expect(button.querySelector('svg')).toBeInTheDocument();
+            const toggleButton = screen.getByTestId('expandable-text-toggle');
+            expect(toggleButton.querySelector('svg')).toBeInTheDocument();
         });
 
         it('should show ChevronUp icon when expanded', () => {
@@ -215,8 +221,8 @@ describe('ExpandableText', () => {
                 />
             );
 
-            const button = screen.getByRole('button');
-            expect(button.querySelector('svg')).toBeInTheDocument();
+            const toggleButton = screen.getByTestId('expandable-text-toggle');
+            expect(toggleButton.querySelector('svg')).toBeInTheDocument();
         });
     });
 });

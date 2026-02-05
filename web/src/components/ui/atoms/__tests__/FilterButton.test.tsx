@@ -14,15 +14,15 @@ describe('FilterButton', () => {
         it('should render without label', () => {
             render(<FilterButton onFilterClick={mockOnFilterClick} />);
 
-            const button = screen.getByRole('button');
-            expect(button).toBeInTheDocument();
-            expect(button.querySelector('svg')).toBeInTheDocument(); // Funnel icon
+            const filterButton = screen.getByTestId('filter-button');
+            expect(filterButton).toBeInTheDocument();
+            expect(filterButton.querySelector('svg')).toBeInTheDocument();
         });
 
         it('should render with label', () => {
             render(<FilterButton label="Filters" onFilterClick={mockOnFilterClick} />);
 
-            expect(screen.getByText('Filters')).toBeInTheDocument();
+            expect(screen.getByTestId('filter-button-label')).toHaveTextContent('Filters');
         });
     });
 
@@ -52,7 +52,7 @@ describe('FilterButton', () => {
 
     describe('visual states', () => {
         it('should apply default styles when no filters active', () => {
-            const { container } = render(
+            render(
                 <FilterButton
                     onFilterClick={mockOnFilterClick}
                     hasActiveFilters={false}
@@ -60,8 +60,9 @@ describe('FilterButton', () => {
                 />
             );
 
-            const button = container.querySelector('button');
-            expect(button).toHaveStyle({ backgroundColor: 'transparent' });
+            const filterButton = screen.getByTestId('filter-button');
+            expect(filterButton).toHaveStyle({ borderColor: '#ccc' });
+            expect(filterButton).toHaveStyle({ backgroundColor: 'transparent' });
         });
 
         it('should apply active styles when filters are active', () => {
@@ -73,7 +74,7 @@ describe('FilterButton', () => {
                 />
             );
 
-            const typography = screen.getByText('Filters');
+            const typography = screen.getByTestId('filter-button-label');
             expect(typography).toHaveStyle({ fontWeight: 500 });
         });
 
@@ -86,12 +87,12 @@ describe('FilterButton', () => {
                 />
             );
 
-            const typography = screen.getByText('Filters');
+            const typography = screen.getByTestId('filter-button-label');
             expect(typography).toHaveStyle({ fontWeight: 500 });
         });
 
         it('should prioritize open state over active state', () => {
-            const { container } = render(
+            render(
                 <FilterButton
                     label="Filters"
                     onFilterClick={mockOnFilterClick}
@@ -101,39 +102,39 @@ describe('FilterButton', () => {
             );
 
             // Open state should take precedence
-            const button = container.querySelector('button');
-            expect(button).toBeInTheDocument();
+            const filterButton = screen.getByTestId('filter-button');
+            expect(filterButton).toBeInTheDocument();
         });
     });
 
     describe('icon rendering', () => {
         it('should render icon without margin when no label', () => {
-            const { container } = render(
+            render(
                 <FilterButton onFilterClick={mockOnFilterClick} />
             );
 
-            const icon = container.querySelector('svg');
+            const icon = screen.getByTestId('filter-button').querySelector('svg');
             expect(icon).toHaveStyle({ marginRight: '0px' });
         });
 
         it('should render icon with margin when label present', () => {
-            const { container } = render(
+            render(
                 <FilterButton label="Filters" onFilterClick={mockOnFilterClick} />
             );
 
-            const icon = container.querySelector('svg');
+            const icon = screen.getByTestId('filter-button').querySelector('svg');
             expect(icon).toHaveStyle({ marginRight: '8px' });
         });
 
         it('should show filled icon when filters active', () => {
-            const { container } = render(
+            render(
                 <FilterButton
                     onFilterClick={mockOnFilterClick}
                     hasActiveFilters={true}
                 />
             );
 
-            const icon = container.querySelector('svg');
+            const icon = screen.getByTestId('filter-button').querySelector('svg');
             expect(icon).toHaveAttribute('fill', '#7bf1a8');
         });
     });

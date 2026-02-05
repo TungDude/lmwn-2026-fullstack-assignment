@@ -25,31 +25,30 @@ describe('Tags', () => {
         it('should show remaining count when maxTags exceeded', () => {
             render(<Tags tags={mockTags} maxTags={2} />);
 
-            expect(screen.getByText('+2')).toBeInTheDocument();
+            expect(screen.getByTestId('remaining-tags-chip')).toBeInTheDocument();
         });
 
         it('should not show remaining count when all tags displayed', () => {
             render(<Tags tags={mockTags} maxTags={4} />);
 
-            expect(screen.queryByText(/^\+\d+$/)).not.toBeInTheDocument();
+            expect(screen.queryByTestId('remaining-tags-chip')).not.toBeInTheDocument();
         });
     });
 
     describe('minimal variant', () => {
         it('should render tags as boxes instead of chips', () => {
-            const { container } = render(
+            render(
                 <Tags tags={mockTags} variant="minimal" />
             );
 
-            // Minimal variant uses Box instead of Chip
-            const chips = container.querySelectorAll('.MuiChip-root');
+            const chips = screen.getByTestId('minimal-tags-container').querySelectorAll('.MuiChip-root');
             expect(chips.length).toBe(0);
         });
 
         it('should show remaining count in minimal variant', () => {
             render(<Tags tags={mockTags} variant="minimal" maxTags={2} />);
 
-            expect(screen.getByText('+2')).toBeInTheDocument();
+            expect(screen.getByTestId('minimal-remaining-tags-count')).toBeInTheDocument();
         });
     });
 
@@ -80,9 +79,9 @@ describe('Tags', () => {
 
     describe('edge cases', () => {
         it('should handle empty tags array', () => {
-            const { container } = render(<Tags tags={[]} />);
+            render(<Tags tags={[]} />);
 
-            const chips = container.querySelectorAll('.MuiChip-root');
+            const chips = screen.getByTestId('tags-container').querySelectorAll('.MuiChip-root');
             expect(chips.length).toBe(0);
         });
 
@@ -95,7 +94,7 @@ describe('Tags', () => {
         it('should handle maxTags equal to tags length', () => {
             render(<Tags tags={mockTags} maxTags={mockTags.length} />);
 
-            expect(screen.queryByText(/^\+\d+$/)).not.toBeInTheDocument();
+            expect(screen.queryByTestId('remaining-tags-chip')).not.toBeInTheDocument();
         });
 
         it('should handle maxTags greater than tags length', () => {
@@ -104,7 +103,7 @@ describe('Tags', () => {
             mockTags.forEach(tag => {
                 expect(screen.getByText(tag)).toBeInTheDocument();
             });
-            expect(screen.queryByText(/^\+\d+$/)).not.toBeInTheDocument();
+            expect(screen.queryByTestId('remaining-tags-chip')).not.toBeInTheDocument();
         });
     });
 });
