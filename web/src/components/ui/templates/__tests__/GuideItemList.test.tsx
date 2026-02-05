@@ -1,8 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, within, waitFor } from '@testing-library/react';
+import { screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GuideItemList from '../GuideItemList';
 import { createGuideItemWithRestaurant } from '@shared/packages/tests';
+import { renderWithTheme } from '@/tests/render';
 
 vi.mock('react-i18next', () => ({
     useTranslation: () => ({
@@ -59,20 +60,20 @@ describe('GuideItemList', () => {
 
     describe('rendering', () => {
         it('should render guide items', () => {
-            render(<GuideItemList guideItems={mockGuideItems} />);
+            renderWithTheme(<GuideItemList guideItems={mockGuideItems} />);
 
             expect(screen.getByText('Restaurant 1')).toBeInTheDocument();
             expect(screen.getByText('Restaurant 2')).toBeInTheDocument();
         });
 
         it('should show empty state when no items', () => {
-            render(<GuideItemList guideItems={[]} />);
+            renderWithTheme(<GuideItemList guideItems={[]} />);
 
             expect(screen.getByText('emptyState')).toBeInTheDocument();
         });
 
         it('should render dividers between items', () => {
-            const { container } = render(<GuideItemList guideItems={mockGuideItems} />);
+            const { container } = renderWithTheme(<GuideItemList guideItems={mockGuideItems} />);
 
             const dividers = container.querySelectorAll('.MuiDivider-root');
             expect(dividers.length).toBeGreaterThan(0);
@@ -81,7 +82,7 @@ describe('GuideItemList', () => {
 
     describe('image carousel', () => {
         it('should not show carousel initially', () => {
-            render(<GuideItemList guideItems={mockGuideItems} />);
+            renderWithTheme(<GuideItemList guideItems={mockGuideItems} />);
 
             const dialog = screen.queryByRole('dialog');
             expect(dialog).not.toBeInTheDocument();
@@ -90,7 +91,7 @@ describe('GuideItemList', () => {
         it('should open carousel when image is clicked', async () => {
             const user = userEvent.setup();
 
-            render(<GuideItemList guideItems={mockGuideItems} />);
+            renderWithTheme(<GuideItemList guideItems={mockGuideItems} />);
 
             // Find and click the first image
             const images = screen.getAllByRole('img');
@@ -104,7 +105,7 @@ describe('GuideItemList', () => {
         it('should pass correct images to carousel', async () => {
             const user = userEvent.setup();
 
-            render(<GuideItemList guideItems={mockGuideItems} />);
+            renderWithTheme(<GuideItemList guideItems={mockGuideItems} />);
 
             const images = screen.getAllByRole('img');
             await user.click(images[0]);
@@ -121,7 +122,7 @@ describe('GuideItemList', () => {
         it('should close carousel when close is triggered', async () => {
             const user = userEvent.setup();
 
-            render(<GuideItemList guideItems={mockGuideItems} />);
+            renderWithTheme(<GuideItemList guideItems={mockGuideItems} />);
 
             const images = screen.getAllByRole('img');
             await user.click(images[0]);
@@ -148,7 +149,7 @@ describe('GuideItemList', () => {
                 ],
             });
 
-            render(<GuideItemList guideItems={[itemWithMultiplePhotos]} />);
+            renderWithTheme(<GuideItemList guideItems={[itemWithMultiplePhotos]} />);
 
             const images = screen.getAllByRole('img');
             await user.click(images[1]);
@@ -164,7 +165,7 @@ describe('GuideItemList', () => {
                 photos: [],
             });
 
-            render(<GuideItemList guideItems={[itemNoPhotos]} />);
+            renderWithTheme(<GuideItemList guideItems={[itemNoPhotos]} />);
 
             expect(screen.getByText('Sample Restaurant')).toBeInTheDocument();
         });
@@ -174,7 +175,7 @@ describe('GuideItemList', () => {
                 photos: [],
             });
 
-            const { container } = render(<GuideItemList guideItems={[itemNoPhotos]} />);
+            const { container } = renderWithTheme(<GuideItemList guideItems={[itemNoPhotos]} />);
 
             expect(container).toBeInTheDocument();
             expect(screen.getByText('Sample Restaurant')).toBeInTheDocument();

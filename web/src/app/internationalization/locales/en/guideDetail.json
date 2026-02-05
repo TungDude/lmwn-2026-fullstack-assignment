@@ -6,6 +6,8 @@
     "address": "Address",
     "phone": "Phone",
     "workingHours": "Working Hours",
+    "delivery": "Delivery",
+    "pickup": "Pickup",
     "noDescription": "No description.",
     "emptyState": "No guide details available.",
     "missingGuideId": "Guide ID is missing.",

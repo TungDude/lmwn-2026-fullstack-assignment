@@ -3,6 +3,7 @@ declare module "@mui/material/styles" {
         green: {
             main: string;
             contrastText: string;
+            light: string;
         };
         gray: {
             main: string;
@@ -17,6 +18,7 @@ declare module "@mui/material/styles" {
         green?: {
             main?: string;
             contrastText?: string;
+            light?: string;
         };
         gray?: {
             main?: string;
@@ -32,6 +34,7 @@ export const paletteTheme = {
     green: {
         main: "#00C853",
         contrastText: "#FFFFFF",
+        light: "#B9F8CF",
     },
     gray: {
         main: "#070711",

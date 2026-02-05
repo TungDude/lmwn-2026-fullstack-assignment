@@ -29,7 +29,7 @@ const toggleButtonRootSx = {
         marginLeft: '0 !important',
         '&.Mui-selected': {
             borderColor: 'green.main',
-            backgroundColor: '#b9f8cf',
+            backgroundColor: 'green.light',
             '&:hover': {
                 backgroundColor: '#7bf1a8',
             },

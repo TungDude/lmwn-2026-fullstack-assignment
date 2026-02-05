@@ -6,6 +6,8 @@
     "address": "ที่อยู่",
     "phone": "เบอร์โทร",
     "workingHours": "เวลาทำการ",
+    "delivery": "เดลิเวอรี่",
+    "pickup": "รับที่ร้าน",
     "noDescription": "ไม่มีคำคำบรรยาย",
     "emptyState": "ไม่มีรายละเอียดของไกด์ในขณะนี้ กรุณาตรวจสอบใหม่ภายหลัง",
     "missingGuideId": "ไม่พบ Guide ID",

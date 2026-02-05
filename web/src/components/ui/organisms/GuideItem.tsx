@@ -9,7 +9,7 @@ import type { GuideItemWithRestaurant } from "@shared/packages/schemas";
 import useResponsive from "@/hooks/useResponsive";
 import { useToast } from "@/hooks/useToast";
 import { useTranslation } from "react-i18next";
-import { Phone, Map, Globe, Clock, Share2 } from "lucide-react";
+import { Phone, Map, Globe, Clock, Share2, BadgeCheck, Motorbike, ShoppingBag } from "lucide-react";
 
 interface GuideItemProps {
     guideItem: GuideItemWithRestaurant;
@@ -128,34 +128,60 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
         const sorted = [...workingHours].sort((a, b) => a.day - b.day);
         const aggregated: Array<{ days: number[]; open: string; close: string }> = [];
 
+        // Convert to 0-indexed (Mon=0, Sun=6)
+        const hours = sorted.map(h => ({
+            day: h.day - 1,
+            open: h.open,
+            close: h.close,
+        }));
+
         let current = {
-            days: [sorted[0].day - 1],
-            open: sorted[0].open,
-            close: sorted[0].close,
+            days: [hours[0].day],
+            open: hours[0].open,
+            close: hours[0].close,
         };
 
-        for (let i = 1; i < sorted.length; i++) {
-            const prev = sorted[i - 1];
-            const curr = sorted[i];
-            const prevDayIndex = prev.day - 1;
-            const currDayIndex = curr.day - 1;
+        for (let i = 1; i < hours.length; i++) {
+            const prev = hours[i - 1];
+            const curr = hours[i];
 
+            // Check if consecutive and same hours
             if (
                 curr.open === current.open &&
                 curr.close === current.close &&
-                currDayIndex === prevDayIndex + 1
+                curr.day === prev.day + 1
             ) {
-                current.days.push(currDayIndex);
+                current.days.push(curr.day);
             } else {
                 aggregated.push(current);
                 current = {
-                    days: [currDayIndex],
+                    days: [curr.day],
                     open: curr.open,
                     close: curr.close,
                 };
             }
         }
         aggregated.push(current);
+
+        // Merge Sunday (6) with Monday (0) if they wrap around
+        if (aggregated.length > 1) {
+            const first = aggregated[0];
+            const last = aggregated.at(-1)!;
+
+            if (
+                last.days.includes(6) &&
+                first.days[0] === 0 &&
+                last.open === first.open &&
+                last.close === first.close
+            ) {
+                aggregated[0] = {
+                    days: [...last.days, ...first.days],
+                    open: first.open,
+                    close: first.close,
+                };
+                aggregated.pop();
+            }
+        }
 
         return aggregated;
     };
@@ -164,11 +190,42 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
         if (days.length === 1) {
             return getDayName(days[0]);
         }
+
+        if (isWrapAroundDays(days)) {
+            return getWrapAroundDayRange(days);
+        }
+
         return `${getDayName(days[0])} - ${getDayName(days.at(-1)!)}`;
     };
 
-    const aggregatedHours = guideItem.restaurant.workingHours
-        ? aggregateWorkingHours(guideItem.restaurant.workingHours)
+    const isWrapAroundDays = (days: number[]) => {
+        const hasSunday = days.includes(6);
+        const hasMonday = days.includes(0);
+        return hasSunday && hasMonday && days.length > 1;
+    };
+
+    const getWrapAroundDayRange = (days: number[]) => {
+        const sortedDays = [...days].sort((a, b) => a - b);
+
+        if (sortedDays[0] === 0 && sortedDays.at(-1) === 6) {
+            let breakIndex = -1;
+            for (let i = 0; i < sortedDays.length - 1; i++) {
+                if (sortedDays[i + 1] - sortedDays[i] > 1) {
+                    breakIndex = i;
+                    break;
+                }
+            }
+
+            if (breakIndex >= 0) {
+                return `${getDayName(sortedDays[breakIndex + 1])} - ${getDayName(sortedDays[breakIndex])}`;
+            }
+        }
+
+        return `${getDayName(sortedDays[0])} - ${getDayName(sortedDays.at(-1)!)}`;
+    };
+
+    const aggregatedHours = restaurant.workingHours
+        ? aggregateWorkingHours(restaurant.workingHours)
         : [];
 
     const renderWorkingHours = () => {
@@ -185,10 +242,10 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
                 <Stack spacing={0.5} pl={3}>
                     {aggregatedHours.map((hours, index) => (
                         <Box key={hours.days.join(",") + index} display="flex" justifyContent="space-between" gap={2}>
-                            <Typography variant="caption" color="text.secondary">
+                            <Typography variant="body2" color="text.secondary">
                                 {formatDayRange(hours.days)}
                             </Typography>
-                            <Typography variant="caption" color="text.secondary" fontWeight={500}>
+                            <Typography variant="body2" color="text.secondary" fontWeight={500}>
                                 {hours.open} - {hours.close}
                             </Typography>
                         </Box>
@@ -322,25 +379,55 @@ export default function GuideItem({ guideItem, onImageClick }: Readonly<GuideIte
                 <Stack spacing={1} width="100%">
                     <Stack spacing={0.5}>
                         <Box sx={{ width: "fit-content" }}>
-                            <Tags variant="minimal" tags={guideItem.restaurant.categories} />
+                            <Tags variant="minimal" tags={restaurant.categories} />
                         </Box>
                         <Stack>
-                            <Typography variant="h4" fontWeight={500}>
-                                {guideItem.restaurant.name}
-                            </Typography>
-                            {guideItem.restaurant.branch && (
-                                <Typography variant="caption" color="text.secondary">
-                                    {t("branch")} - {guideItem.restaurant.branch}
+                            <Stack direction="row" alignItems="center" spacing={1}>
+                                <Typography variant="h4" fontWeight={500}>
+                                    {restaurant.name}
                                 </Typography>
+                                {restaurant.official && (
+                                    <BadgeCheck
+                                        size={isSmallScreen ? 24 : 28}
+                                        strokeWidth={2}
+                                        fill={theme.palette.green.main}
+                                        color="white"
+                                    />
+                                )}
+                            </Stack>
+                            {restaurant.branch && (
+                                <Typography variant="caption" color="text.secondary">
+                                    {t("branch")} - {restaurant.branch}
+                                </Typography>
+                            )}
+                            {(restaurant.delivery || restaurant.pickup) && (
+                                <Stack direction="row" alignItems="center" spacing={1.5} mt={0.5}>
+                                    {restaurant.delivery && (
+                                        <Stack direction="row" alignItems="center" spacing={0.5}>
+                                            <Motorbike size={14} color={theme.palette.grey[800]} strokeWidth={2} />
+                                            <Typography variant="subtitle2" color="text.secondary" fontWeight={500}>
+                                                {t("delivery")}
+                                            </Typography>
+                                        </Stack>
+                                    )}
+                                    {restaurant.pickup && (
+                                        <Stack direction="row" alignItems="center" spacing={0.5}>
+                                            <ShoppingBag size={14} color={theme.palette.grey[800]} strokeWidth={2} />
+                                            <Typography variant="subtitle2" color="text.secondary" fontWeight={500}>
+                                                {t("pickup")}
+                                            </Typography>
+                                        </Stack>
+                                    )}
+                                </Stack>
                             )}
                         </Stack>
                     </Stack>
 
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 1 }}>
                         <Stack direction="row" spacing={0.5} alignItems="center">
-                            <Rating value={guideItem.restaurant.rating} precision={0.1} readOnly size="small" />
+                            <Rating value={restaurant.rating} precision={0.1} readOnly size="small" />
                             <Typography variant="body2" color="text.secondary">
-                                {guideItem.restaurant.rating.toFixed(1)} ({guideItem.restaurant.numberOfReviews.toLocaleString()})
+                                {restaurant.rating.toFixed(1)} ({restaurant.numberOfReviews.toLocaleString()})
                             </Typography>
                         </Stack>
                         <IconButton

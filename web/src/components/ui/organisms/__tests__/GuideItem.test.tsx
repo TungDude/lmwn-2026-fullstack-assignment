@@ -1,8 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GuideItem from '../GuideItem';
 import { createGuideItemWithRestaurant } from '@shared/packages/tests';
+import { renderWithTheme } from '@/tests/render';
 
 vi.mock('@/hooks/useResponsive', () => ({
     default: () => ({
@@ -53,20 +54,20 @@ describe('GuideItem', () => {
 
     describe('basic rendering', () => {
         it('should render restaurant name', () => {
-            render(<GuideItem guideItem={mockGuideItem} />);
+            renderWithTheme(<GuideItem guideItem={mockGuideItem} />);
 
             expect(screen.getByText('Test Restaurant')).toBeInTheDocument();
         });
 
         it('should render categories as tags', () => {
-            render(<GuideItem guideItem={mockGuideItem} />);
+            renderWithTheme(<GuideItem guideItem={mockGuideItem} />);
 
             expect(screen.getByText('Thai')).toBeInTheDocument();
             expect(screen.getByText('Street Food')).toBeInTheDocument();
         });
 
         it('should render rating', () => {
-            render(<GuideItem guideItem={mockGuideItem} />);
+            renderWithTheme(<GuideItem guideItem={mockGuideItem} />);
 
             expect(screen.getByText('4.5 (100)')).toBeInTheDocument();
         });
@@ -76,7 +77,7 @@ describe('GuideItem', () => {
                 description: 'Amazing food and great atmosphere',
             });
 
-            render(<GuideItem guideItem={guideWithDesc} />);
+            renderWithTheme(<GuideItem guideItem={guideWithDesc} />);
 
             expect(screen.getByText('Amazing food and great atmosphere')).toBeInTheDocument();
         });
@@ -84,7 +85,7 @@ describe('GuideItem', () => {
 
     describe('working hours aggregation', () => {
         it('should aggregate consecutive days with same hours', () => {
-            render(<GuideItem guideItem={mockGuideItem} />);
+            renderWithTheme(<GuideItem guideItem={mockGuideItem} />);
 
             // Mon-Wed should be aggregated
             expect(screen.getByText(/weekDay.monday.*weekDay.wednesday/)).toBeInTheDocument();
@@ -104,7 +105,7 @@ describe('GuideItem', () => {
                 },
             });
 
-            render(<GuideItem guideItem={guideWithSingleDay} />);
+            renderWithTheme(<GuideItem guideItem={guideWithSingleDay} />);
 
             expect(screen.getByText('weekDay.monday')).toBeInTheDocument();
             expect(screen.getByText('09:00 - 17:00')).toBeInTheDocument();
@@ -117,7 +118,7 @@ describe('GuideItem', () => {
                 },
             });
 
-            render(<GuideItem guideItem={guideNoHours} />);
+            renderWithTheme(<GuideItem guideItem={guideNoHours} />);
 
             expect(screen.queryByText('workingHours')).not.toBeInTheDocument();
         });
@@ -125,13 +126,13 @@ describe('GuideItem', () => {
 
     describe('contact information', () => {
         it('should render phone number', () => {
-            render(<GuideItem guideItem={mockGuideItem} />);
+            renderWithTheme(<GuideItem guideItem={mockGuideItem} />);
 
             expect(screen.getByText('02-123-4567')).toBeInTheDocument();
         });
 
         it('should render address', () => {
-            render(<GuideItem guideItem={mockGuideItem} />);
+            renderWithTheme(<GuideItem guideItem={mockGuideItem} />);
 
             expect(screen.getByText('123 Test St, Bangkok')).toBeInTheDocument();
         });
@@ -144,7 +145,7 @@ describe('GuideItem', () => {
                 },
             });
 
-            render(<GuideItem guideItem={guideNoContact} />);
+            renderWithTheme(<GuideItem guideItem={guideNoContact} />);
 
             expect(screen.getByText('missingContactInfo')).toBeInTheDocument();
         });
@@ -158,7 +159,7 @@ describe('GuideItem', () => {
                 },
             });
 
-            render(<GuideItem guideItem={guideWithLine} />);
+            renderWithTheme(<GuideItem guideItem={guideWithLine} />);
 
             expect(screen.getByText('testrestaurant')).toBeInTheDocument();
         });
@@ -170,7 +171,7 @@ describe('GuideItem', () => {
                 },
             });
 
-            render(<GuideItem guideItem={guideWithIG} />);
+            renderWithTheme(<GuideItem guideItem={guideWithIG} />);
 
             expect(screen.getByText('@testrestaurant')).toBeInTheDocument();
         });
@@ -185,7 +186,7 @@ describe('GuideItem', () => {
                 },
             });
 
-            render(<GuideItem guideItem={guideNoSocial} />);
+            renderWithTheme(<GuideItem guideItem={guideNoSocial} />);
 
             expect(screen.queryByText('socialMedia')).not.toBeInTheDocument();
         });
@@ -202,7 +203,7 @@ describe('GuideItem', () => {
                 ],
             });
 
-            render(
+            renderWithTheme(
                 <GuideItem
                     guideItem={guideWithImages}
                     onImageClick={mockOnImageClick}
@@ -219,7 +220,7 @@ describe('GuideItem', () => {
             const user = userEvent.setup();
             const hrefSpy = vi.spyOn(globalThis.location, 'href', 'set');
 
-            render(<GuideItem guideItem={mockGuideItem} />);
+            renderWithTheme(<GuideItem guideItem={mockGuideItem} />);
 
             const phoneLink = screen.getByText('02-123-4567');
             await user.click(phoneLink);
@@ -237,7 +238,7 @@ describe('GuideItem', () => {
                 writable: true,
             });
 
-            render(<GuideItem guideItem={mockGuideItem} />);
+            renderWithTheme(<GuideItem guideItem={mockGuideItem} />);
 
             const shareButton = screen.getByLabelText('share');
             await user.click(shareButton);
@@ -257,7 +258,7 @@ describe('GuideItem', () => {
                 writable: true,
             });
 
-            render(<GuideItem guideItem={mockGuideItem} />);
+            renderWithTheme(<GuideItem guideItem={mockGuideItem} />);
 
             const shareButton = screen.getByLabelText('share');
             await user.click(shareButton);
@@ -276,7 +277,7 @@ describe('GuideItem', () => {
                 restaurant: null,
             });
 
-            render(<GuideItem guideItem={guideNoRestaurant} />);
+            renderWithTheme(<GuideItem guideItem={guideNoRestaurant} />);
 
             expect(screen.getByText('missingRestaurantData')).toBeInTheDocument();
         });
@@ -289,7 +290,7 @@ describe('GuideItem', () => {
                 },
             });
 
-            render(<GuideItem guideItem={guideWithBranch} />);
+            renderWithTheme(<GuideItem guideItem={guideWithBranch} />);
 
             expect(screen.getByText(/branch.*Central World/)).toBeInTheDocument();
         });
