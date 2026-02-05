@@ -37,10 +37,13 @@ export class GuideService {
         const restaurantIds = [...new Set(items.map(item => item.restaurantId))];
         const restaurantPromises = restaurantIds.map(id =>
             this.restaurantHttpClient.get<Restaurant>(`/restaurants/${id}`)
+                .catch(() => ({ data: undefined }))
         );
         const restaurantResponses = await Promise.all(restaurantPromises);
         const restaurantsMap = new Map(
-            restaurantResponses.map(r => [r.data.id, r.data])
+            restaurantResponses
+                .filter(r => r.data !== undefined)
+                .map(r => [r.data.id, r.data])
         );
 
         return items.map(item => ({

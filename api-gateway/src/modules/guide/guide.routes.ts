@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as guideController from "./guide.controller";
+import { guideController } from "./guide.controller";
 
 const router = Router();
 
