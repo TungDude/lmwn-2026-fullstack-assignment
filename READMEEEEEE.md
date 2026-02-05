@@ -9,13 +9,19 @@ A full-stack application with API Gateway and Web frontend, demonstrating guides
 **Prerequisites:**
 - Docker Desktop installed and running
 
-**Run the entire application:**
+**1. Build the application:**
 
 ```bash
-docker compose up --build
+docker compose build --no-cache
 ```
 
-Wait for all services to start, then open:
+Wait for all services to start, then:
+
+**2. Start the application:**
+
+```bash
+docker compose up -d
+```
 
 **🌐 Web Application: http://localhost:3000**
 
