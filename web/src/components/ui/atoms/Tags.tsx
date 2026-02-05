@@ -34,13 +34,13 @@ export default function Tags({ tags, highlights = [], variant = "default", maxTa
                         sx={{
                             px: 0.5,
                             py: 0.25,
-                            color: isHighlighted(tag) ? "green.main" : "black",
+                            color: "green.main",
                             borderRadius: "4px",
                             fontSize: "0.7rem",
                             fontWeight: 400,
                             lineHeight: 1.5,
                             border: "1px solid",
-                            borderColor: isHighlighted(tag) ? "green.main" : "border.main",
+                            borderColor: "green.main",
                         }}
                     >
                         {tag}
