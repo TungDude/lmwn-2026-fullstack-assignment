@@ -57,6 +57,7 @@ export default function FilterButton({ label, onFilterClick, hasActiveFilters, i
                     backgroundColor: "grey.100",
                 }
             }}
+            data-testid="filter-button"
         >
             <Funnel
                 size={16}
@@ -65,7 +66,7 @@ export default function FilterButton({ label, onFilterClick, hasActiveFilters, i
                 style={{ marginRight: label ? 8 : 0 }}
             />
             {label && (
-                <Typography variant="body2" fontWeight={hasActiveFilters || isFilterMenuOpen ? 500 : 400}>
+                <Typography variant="body2" fontWeight={hasActiveFilters || isFilterMenuOpen ? 500 : 400} data-testid="filter-button-label">
                     {label}
                 </Typography>
             )}

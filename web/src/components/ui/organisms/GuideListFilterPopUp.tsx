@@ -29,7 +29,7 @@ const toggleButtonRootSx = {
         marginLeft: '0 !important',
         '&.Mui-selected': {
             borderColor: 'green.main',
-            backgroundColor: '#b9f8cf',
+            backgroundColor: 'green.light',
             '&:hover': {
                 backgroundColor: '#7bf1a8',
             },
@@ -88,6 +88,7 @@ export default function GuideListFilterPopUp({
                         minWidth: isMobile ? 300 : 400,
                         maxWidth: isMobile ? 350 : 500,
                     }}
+                    data-testid="guide-list-filter-popup-paper"
                 >
                     <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 1, pb: 1 }}>
                         <Typography variant="h6">

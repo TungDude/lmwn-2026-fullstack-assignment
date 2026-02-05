@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ZodError } from '@shared/packages';
+import { ZodError } from '@shared/packages/schemas';
 
 type AsyncHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>;
 

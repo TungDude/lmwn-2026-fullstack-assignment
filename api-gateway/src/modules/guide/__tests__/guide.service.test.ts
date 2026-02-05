@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { AxiosInstance } from "axios";
 import { GuideService } from "../guide.service";
-import { createGuideDetail, createGuideItem, createRestaurant } from "./guide.fixtures";
 import type {
     GuideDetail,
     GuideItem,
     Restaurant,
     GuideItemWithRestaurant,
-} from "@shared/packages";
+} from "@shared/packages/schemas";
+import { createGuideDetail, createGuideItem, createRestaurant } from "@shared/packages/tests";
 
 function createMockAxios() {
     const get = vi.fn();

@@ -157,6 +157,7 @@ export default function ImageCarousel({ images, startIndex = 0 }: Readonly<Image
                             "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
                             zIndex: 10,
                         }}
+                        data-testid="previous-image-button"
                     >
                         <ChevronLeft size={24} />
                     </IconButton>
@@ -175,6 +176,7 @@ export default function ImageCarousel({ images, startIndex = 0 }: Readonly<Image
                             "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
                             zIndex: 10,
                         }}
+                        data-testid="next-image-button"
                     >
                         <ChevronRight size={24} />
                     </IconButton>

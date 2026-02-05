@@ -2,17 +2,33 @@
   "name": "@shared/packages",
   "version": "1.0.0",
   "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/types/index.js",
+      "import": "./dist/types/index.mjs"
+    },
+    "./schemas": {
+      "types": "./dist/schemas/index.d.ts",
+      "require": "./dist/schemas/index.js",
+      "import": "./dist/schemas/index.mjs"
+    },
+    "./tests": {
+      "types": "./dist/tests/index.d.ts",
+      "require": "./dist/tests/index.js",
+      "import": "./dist/tests/index.mjs"
     }
   },
   "scripts": {
-    "build": "tsup index.ts --format cjs,esm --target node18  --dts",
-    "dev": "tsup index.ts --format cjs,esm --target node18 --dts --watch",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "lint": "eslint",
     "typecheck": "tsc --noEmit"
   },

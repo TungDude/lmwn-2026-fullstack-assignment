@@ -7,7 +7,7 @@ import ImageCarousel from "../molecules/ImageCarousel";
 import ResponsiveDialog from "../molecules/ResponsiveDialog";
 import { SlideTransition } from "../atoms/SlideTransition";
 import type { Image } from "../molecules/ImageGallery";
-import type { GuideItemWithRestaurant } from "@shared/packages";
+import type { GuideItemWithRestaurant } from "@shared/packages/schemas";
 import { useTranslation } from "react-i18next";
 
 interface GuideItemListProps {
@@ -53,7 +53,7 @@ export default function GuideItemList({ guideItems, isLoading }: Readonly<GuideI
                 {renderItems()}
             </Stack>
             <ResponsiveDialog
-                open={isCarouselOpen}
+                open={isCarouselOpen && selectedImages.length > 0}
                 fullScreenOnMobile={true}
                 onClose={() => setCarouselOpen(false)}
                 maxWidth="lg"
@@ -70,9 +70,10 @@ export default function GuideItemList({ guideItems, isLoading }: Readonly<GuideI
                             height: "auto",
                             justifyContent: "center",
                             alignItems: "center",
-                        }
+                        },
                     }
                 }}
+                data-testid="guide-item-list-image-carousel-dialog"
             >
                 <ImageCarousel
                     images={selectedImages}

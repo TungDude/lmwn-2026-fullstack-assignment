@@ -4,7 +4,7 @@ import express, { Express } from "express";
 import { guideRoutes } from "../guide.routes";
 import { guideService } from "../guide.service";
 import { responseFormatterMiddleware } from "@/middlewares/response.middleware";
-import { createGuideDetail, createGuideItemWithRestaurant } from "./guide.fixtures";
+import { createGuideDetail, createGuideItemWithRestaurant } from "@shared/packages/tests";
 
 vi.mock("../guide.service");
 

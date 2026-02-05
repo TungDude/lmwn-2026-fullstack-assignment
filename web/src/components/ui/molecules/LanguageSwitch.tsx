@@ -22,6 +22,7 @@ export function LanguageSwitch() {
             onChange={handleSelectLanguage}
             aria-label="Language Switch"
             color="primary"
+            data-testid="language-switch"
         >
             {languages.map((lang) => (
                 <ToggleButton
@@ -31,6 +32,7 @@ export function LanguageSwitch() {
                     sx={{
                         py: 0.5
                     }}
+                    data-testid={`language-option-${lang.code}`}
                 >
                     {lang.flag}
                 </ToggleButton>

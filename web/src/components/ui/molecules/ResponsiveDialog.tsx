@@ -31,6 +31,7 @@ export default function ResponsiveDialog({
                         color: "white",
                         "&:hover": { bgcolor: "rgba(0,0,0,0.7)" }
                     }}
+                    data-testid="responsive-dialog-close-button"
                 >
                     <X size={20} />
                 </IconButton>

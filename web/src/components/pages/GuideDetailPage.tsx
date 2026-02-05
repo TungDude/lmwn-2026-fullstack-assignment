@@ -6,7 +6,7 @@ import BackButton from "../ui/molecules/BackButton";
 import GuideHero from "../ui/organisms/GuideHero";
 import GuideItemList from "../ui/templates/GuideItemList";
 import { useGuideItemsByGuideId } from "@/hooks/queries/useGuideQueries";
-import type { GuideDetail } from "@shared/packages";
+import type { GuideDetail } from "@shared/packages/schemas";
 import { useTranslation } from "react-i18next";
 import useResponsive from "@/hooks/useResponsive";
 import { RotateCw } from "lucide-react";

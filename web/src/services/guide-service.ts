@@ -1,9 +1,9 @@
 import { apiClient } from "@/lib/api-client";
 import type {
-    ApiResponse,
     GuideDetail,
     GuideItemWithRestaurant,
-} from "@shared/packages";
+} from "@shared/packages/schemas";
+import type { ApiResponse } from "@shared/packages/types";
 
 export const guideService = {
     async getGuides(): Promise<GuideDetail[]> {

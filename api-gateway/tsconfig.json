@@ -6,7 +6,6 @@
     "lib": [
       "es6",
       "esnext",
-      "dom"
     ],
     "allowJs": true,
     "skipLibCheck": true,
