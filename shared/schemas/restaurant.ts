@@ -26,9 +26,3 @@ export const RestaurantSchema = z.object({
 });
 
 export type Restaurant = z.infer<typeof RestaurantSchema>;
-
-export const RestaurantIdSchema = z.object({
-    restaurantId: z.string().uuid(),
-});
-
-export type RestaurantId = z.infer<typeof RestaurantIdSchema>;
